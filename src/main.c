@@ -1,3 +1,3 @@
 #include "clock.h"
 
-int main() { countdown(1000); }
+int main() { countdown((5 * 60), p_break); }
