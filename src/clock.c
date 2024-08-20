@@ -1,20 +1,27 @@
 #include "clock.h"
 #include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
 #include "time.h"
 
-int pomo_countdown(unsigned int sec, enum pomo_state state) {
+char *months[] = {"January",   "February", "March",    "April",
+                  "May",       "June",     "July",     "August",
+                  "September", "October",  "November", "December"};
+
+int pomo_countdown(pomo_timer timer) {
   /* Prints a countdown onto the screen. If the countdown fails,
    * it returns nonzero */
 
-  while (sec > 0) {
+  while (timer.sec > 0) {
     // Getting minutes
-    int min = (sec / 60);
-    int t_sec = (sec % 60);
+    int min = (timer.sec / 60);
+    int t_sec = (timer.sec % 60);
 
     // Printing the current minutes or seconds left
-    if (state == on) {
-      printf("\r🍅 %02d:%02d", min, t_sec);
-    } else if (state == p_break) {
+    if (timer.state == on) {
+      printf("\r🍅 Session #%d: %s - %02d:%02d", timer.current_session_number,
+             timer.session_name, min, t_sec);
+    } else if (timer.state == p_break) {
       printf("\r🌹 %02d:%02d", min, t_sec);
     }
 
@@ -30,8 +37,38 @@ int pomo_countdown(unsigned int sec, enum pomo_state state) {
     };
 
     // Decrement after a second has elapsed
-    sec--;
+    timer.sec--;
   }
 
   return 0;
 };
+
+ptr_time get_time() {
+  time_t t1, t3;
+  struct tm *t2;
+
+  t1 = time(NULL);
+  t2 = localtime(&t1);
+  t3 = mktime(t2);
+
+  ptr_time result;
+
+  if (t2 == NULL) {
+    strcpy(result.time, "0000");
+    return result;
+  }
+
+  // Getting Hour
+  char hr[6];
+  sprintf(hr, "%02d", t2->tm_hour);
+
+  // Adding minute
+  char min[6];
+  sprintf(min, ":%02d", t2->tm_min);
+
+  // Pushing hour and min together
+  strcat(hr, min);
+  strcpy(result.time, hr);
+
+  return result;
+}
