@@ -44,9 +44,12 @@ int pomo_countdown(pomo_timer timer) {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 ptr_time get_time() {
   time_t t1;
 =======
+=======
+>>>>>>> Stashed changes
 ptr_time get_time(void) {
   time_t t1, t3;
 >>>>>>> Stashed changes
