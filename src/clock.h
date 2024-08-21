@@ -1,7 +1,7 @@
 #pragma once
 
 typedef struct ptr_time {
-  char date[6];
+  char date[33];
   char time[6];
 } ptr_time;
 

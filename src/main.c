@@ -3,5 +3,5 @@
 
 int main() {
   ptr_time time = get_time();
-  printf("%s, %s", time.time, time.date);
+  printf("%s, %s\n", time.time, time.date);
 }

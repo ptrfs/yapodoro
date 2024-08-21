@@ -70,5 +70,17 @@ ptr_time get_time() {
   strcat(hr, min);
   strcpy(result.time, hr);
 
+  // Getting day
+  char day[32];
+  sprintf(day, "%02d ", t2->tm_mday);
+
+  // Getting month
+  char month[12];
+  sprintf(month, "%s", months[t2->tm_mon]);
+
+  // Pushing day and month together
+  strcat(day, month);
+  strcpy(result.date, day);
+
   return result;
 }
