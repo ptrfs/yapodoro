@@ -22,4 +22,4 @@ typedef struct pomo_timer {
 int pomo_countdown(pomo_timer timer);
 
 // Getting time functions
-ptr_time get_time();
+ptr_time get_time(void);

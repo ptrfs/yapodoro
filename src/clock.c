@@ -41,10 +41,15 @@ int pomo_countdown(pomo_timer timer) {
   }
 
   return 0;
-};
+}
 
+<<<<<<< Updated upstream
 ptr_time get_time() {
   time_t t1;
+=======
+ptr_time get_time(void) {
+  time_t t1, t3;
+>>>>>>> Stashed changes
   struct tm *t2;
 
   t1 = time(NULL);
