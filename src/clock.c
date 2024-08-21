@@ -44,12 +44,11 @@ int pomo_countdown(pomo_timer timer) {
 };
 
 ptr_time get_time() {
-  time_t t1, t3;
+  time_t t1;
   struct tm *t2;
 
   t1 = time(NULL);
   t2 = localtime(&t1);
-  t3 = mktime(t2);
 
   ptr_time result;
 
