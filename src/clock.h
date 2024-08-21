@@ -7,7 +7,7 @@ typedef struct ptr_time {
 
 enum pomo_state {
   on,
-  pause,
+  p_pause,
   p_break,
 };
 
