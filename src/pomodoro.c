@@ -112,5 +112,21 @@ int pomodoro(char *session_name) {
     return -1;
   }
 
+  pomo_timer break_state;
+  break_state.session_name = session_name;
+  break_state.sec = (5 * 60);
+  break_state.state = p_pause;
+
+  pomo_timer on_state;
+  on_state.session_name = session_name;
+  on_state.sec = (25 * 60);
+  on_state.state = on;
+
+  int session_counter = 0;
+
+  // TODO: Finish this
+  // Basically: once the pomodoro is finished, find a way to increment the
+  // pomodoro counter and after that redo and once it is done then save it to
+  // the pomfile.
   return 0;
 }

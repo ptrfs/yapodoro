@@ -8,7 +8,7 @@ char *months[] = {"January",   "February", "March",    "April",
                   "May",       "June",     "July",     "August",
                   "September", "October",  "November", "December"};
 
-int pomo_countdown(pomo_timer timer) {
+void pomo_countdown(pomo_timer timer) {
   /* Prints a countdown onto the screen. If the countdown fails,
    * it returns nonzero */
 
@@ -39,8 +39,6 @@ int pomo_countdown(pomo_timer timer) {
     // Decrement after a second has elapsed
     timer.sec--;
   }
-
-  return 0;
 }
 
 ptr_time get_time(void) {

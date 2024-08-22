@@ -1,2 +1,2 @@
 all:
-	clang src/* lib* main.cpp -o bin/pom
+	clang src/* lib* -o bin/pom
