@@ -3,3 +3,4 @@ src/a.out
 src/clock.h.gch
 main.cpp
 src/clock.h.pch
+src/pomodoro.h.pch

@@ -1,15 +1,11 @@
 #include "pomodoro.h"
 #include "clock.h"
 #include "dirent.h"
-#include "pwd.h"
-#include "stdbool.h"
-#include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
 #include "sys/stat.h"
-#include "unistd.h"
 
-static const char *getfield(char *line, int num) {
+const char *getfield(char *line, int num) {
   const char *tok;
   for (tok = strtok(line, ";"); tok && *tok; tok = strtok(NULL, ";\n")) {
     if (!--num)
@@ -18,7 +14,7 @@ static const char *getfield(char *line, int num) {
   return NULL;
 }
 
-static int get_file_lines(FILE *file) {
+int get_file_lines(FILE *file) {
   int lines = 0;
   char ch;
 
@@ -34,7 +30,7 @@ static int get_file_lines(FILE *file) {
   return lines;
 }
 
-static bool find_directory(char *dir_name) {
+bool find_directory(char *dir_name) {
   DIR *temp = opendir(dir_name);
   if (temp == NULL) {
     return true;
@@ -43,18 +39,16 @@ static bool find_directory(char *dir_name) {
   }
 }
 
-static FILE *setup_pomodoro_session_file(char *session_name) {
+FILE *setup_pomodoro_session_file(char *session_name) {
   // Giving session_name space to work with
   char session_name_with_space[4096];
   strcpy(session_name_with_space, session_name);
 
   // Start by writing the session name into the sessions file
-  struct passwd *pwd = getpwuid(getuid());
-  char *home_dir = pwd->pw_dir;
   char *dir = malloc(1024);
   FILE *file;
 
-  strcpy(dir, home_dir);
+  strcpy(dir, getenv("HOME"));
   strcat(dir, "/.local/pom/");
 
   if (!find_directory(dir)) {
@@ -78,6 +72,19 @@ static FILE *setup_pomodoro_session_file(char *session_name) {
     return NULL;
   }
 
+  dir = NULL;
+  free(dir);
+
+  pomfile = NULL;
+  free(pomfile);
+
+  return file;
+}
+
+int populate_pomfile(FILE *file, char *session_name) {
+  char session_name_with_space[4096];
+  strcpy(session_name_with_space, session_name);
+
   ptr_time current_time = get_time();
   char *fulltime = malloc(1024);
 
@@ -88,23 +95,22 @@ static FILE *setup_pomodoro_session_file(char *session_name) {
 
   int fput_res = fputs(session_name_with_space, file);
   if (fput_res == EOF)
-    return NULL;
-
-  dir = NULL;
-  free(dir);
-
-  pomfile = NULL;
-  free(pomfile);
+    return -1;
 
   fulltime = NULL;
   free(fulltime);
 
-  return file;
+  return 0;
 }
 
+// TODO: Actually do this function
 int pomodoro(char *session_name) {
   FILE *file = setup_pomodoro_session_file(session_name);
+  populate_pomfile(file, session_name);
+
   if (file == NULL) {
     return -1;
   }
+
+  return 0;
 }
