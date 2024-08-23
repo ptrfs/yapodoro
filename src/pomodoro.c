@@ -4,6 +4,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "sys/stat.h"
+#include <stdio.h>
 
 const char *getfield(char *line, int num) {
   const char *tok;
@@ -122,11 +123,23 @@ int pomodoro(char *session_name) {
   on_state.sec = (25 * 60);
   on_state.state = on;
 
-  int session_counter = 0;
+  int session_counter = 1;
 
   // TODO: Finish this
   // Basically: once the pomodoro is finished, find a way to increment the
   // pomodoro counter and after that redo and once it is done then save it to
   // the pomfile.
+  pomo_countdown(on_state);
+
+  printf("/a");
+  char c;
+  printf("Countdown finished: enter y to go to break: ");
+  scanf("%c", &c);
+
+  if (c == 'y') {
+    pomo_countdown(break_state);
+  } else {
+    return 0;
+  }
   return 0;
 }

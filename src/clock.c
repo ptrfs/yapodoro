@@ -39,6 +39,10 @@ void pomo_countdown(pomo_timer timer) {
     // Decrement after a second has elapsed
     timer.sec--;
   }
+
+  if (timer.state == p_break) {
+    timer.current_session_number++;
+  }
 }
 
 ptr_time get_time(void) {
