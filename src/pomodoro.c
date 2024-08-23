@@ -107,11 +107,11 @@ int populate_pomfile(FILE *file, char *session_name) {
 // TODO: Actually do this function
 int pomodoro(char *session_name) {
   FILE *file = setup_pomodoro_session_file(session_name);
-  populate_pomfile(file, session_name);
-
   if (file == NULL) {
     return -1;
   }
+
+  populate_pomfile(file, session_name);
 
   pomo_timer break_state;
   break_state.session_name = session_name;
@@ -129,6 +129,8 @@ int pomodoro(char *session_name) {
   // Basically: once the pomodoro is finished, find a way to increment the
   // pomodoro counter and after that redo and once it is done then save it to
   // the pomfile.
+  on_state.current_session_number = session_counter;
+  break_state.current_session_number = session_counter;
   pomo_countdown(on_state);
 
   printf("/a");
