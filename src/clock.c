@@ -13,6 +13,9 @@ void pomo_countdown(pomo_timer timer) {
    * it returns nonzero */
 
   while (timer.sec > 0) {
+    // Decrement after a second has started
+    timer.sec--;
+
     // Getting minutes
     int min = (timer.sec / 60);
     int t_sec = (timer.sec % 60);
@@ -35,10 +38,9 @@ void pomo_countdown(pomo_timer timer) {
     // If stop is more than the clock ticks, stop the program for one second
     while (clock() < stop) {
     };
-
-    // Decrement after a second has elapsed
-    timer.sec--;
   }
+
+  printf("\n");
 
   if (timer.state == p_break) {
     timer.current_session_number++;

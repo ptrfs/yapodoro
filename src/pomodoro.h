@@ -3,4 +3,6 @@
 #include "stdbool.h"
 #include "stdio.h"
 
-int pomodoro(char *session_name);
+void pomodoro(char *session_name);
+
+void save_session_info(char *session_name, int session_number);
