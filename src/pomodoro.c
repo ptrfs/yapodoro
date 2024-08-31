@@ -19,6 +19,9 @@ void create_session_dir(void) {
   if ((stat(safe_session_info_dir, &st) == -1)) {
     mkdir(safe_session_info_dir, 0777);
   }
+
+  safe_session_info_dir = NULL;
+  free(safe_session_info_dir);
 }
 
 void save_session_info(char *session_name, int session_number) {
@@ -42,6 +45,9 @@ void save_session_info(char *session_name, int session_number) {
 
   FILE *f2 = fopen(safe_session_info_file, "a");
   fprintf(f2, "%s,%i\n", session_name, session_number);
+
+  safe_session_info_file = NULL;
+  free(safe_session_info_file);
 }
 
 // TODO: Actually do this function
