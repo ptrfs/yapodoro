@@ -39,28 +39,40 @@ void save_session_info(char *session_name, int session_number) {
   FILE *file = fopen(safe_session_info_file, "r");
   if (file == NULL) {
     file = fopen(safe_session_info_file, "a+");
-    fprintf(file, "session_name,session_number\n");
+    fprintf(file, "session_name,session_number,date,time\n");
     fclose(file);
   }
 
+  ptr_time time = get_time();
+
   FILE *f2 = fopen(safe_session_info_file, "a");
-  fprintf(f2, "%s,%i\n", session_name, session_number);
+  fprintf(f2, "%s,%i,%s,%s\n", session_name, session_number, time.date,
+          time.time);
 
   safe_session_info_file = NULL;
   free(safe_session_info_file);
 }
 
-// TODO: Actually do this function
-void pomodoro(char *session_name) {
+void clear(void) {
+#if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+  system("clear");
+#endif
+
+#if defined(_WIN32) || defined(_WIN64)
+  system("cls");
+#endif
+}
+
+void pomodoro_session(char *session_name) {
   int session_counter = 0;
   pomo_timer on_state, pause_state;
   on_state.session_name = session_name;
-  on_state.sec = 1501;
+  on_state.sec = 6; // 1501
   on_state.state = on;
   on_state.current_session_number = 0;
 
   pause_state.session_name = session_name;
-  pause_state.sec = 301;
+  pause_state.sec = 6; // 301
   pause_state.state = p_break;
   pause_state.current_session_number = 0;
 
@@ -71,7 +83,7 @@ void pomodoro(char *session_name) {
     pomo_countdown(on_state);
 
     char a;
-    printf("Proceed? [y/n]: ");
+    printf("\aProceed? [y/n]: ");
     scanf(" %c", &a);
     if (a == 'n') {
       break;
@@ -79,11 +91,13 @@ void pomodoro(char *session_name) {
 
     char b;
     pomo_countdown(pause_state);
-    printf("Proceed? [y/n]: ");
+    printf("\aProceed? [y/n]: ");
     scanf(" %c", &b);
     if (b == 'n') {
       break;
     }
+
+    clear();
 
     on_state.current_session_number++;
     pause_state.current_session_number++;

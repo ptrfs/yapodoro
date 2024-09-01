@@ -1,3 +1,3 @@
 all:
-	clang src/* lib*
+	clang src/*
 	mv a.out bin/pom
