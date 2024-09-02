@@ -64,17 +64,17 @@ void clear(void) {
 }
 
 void pomodoro_session(char *session_name) {
-  int session_counter = 0;
+  int session_counter = 1;
   pomo_timer on_state, pause_state;
   on_state.session_name = session_name;
-  on_state.sec = 6; // 1501
+  on_state.sec = 1501; // This is 25 minutes
   on_state.state = on;
-  on_state.current_session_number = 0;
+  on_state.current_session_number = 1;
 
   pause_state.session_name = session_name;
-  pause_state.sec = 6; // 301
+  pause_state.sec = 301; // this is 3 minutes
   pause_state.state = p_break;
-  pause_state.current_session_number = 0;
+  pause_state.current_session_number = 1;
 
   char opt;
 
