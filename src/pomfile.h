@@ -1,7 +1,6 @@
 #pragma once
 #include "stdio.h"
 
-int count_lines(FILE *file);
 
 typedef struct ptr_csv_info {
   const char *session_name;
@@ -10,4 +9,9 @@ typedef struct ptr_csv_info {
   const char *time;
 } ptr_csv_info;
 
+int count_lines(FILE *file);
+char *getfield(char *line, int num);
+const char *get_pomfile(void);
+
 ptr_csv_info *get_csv_info(void);
+

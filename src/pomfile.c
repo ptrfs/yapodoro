@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-static const char *get_pomfile(void);
 
 int count_lines(FILE *file) {
   char ch;
@@ -27,7 +26,7 @@ int count_lines(FILE *file) {
   return number;
 }
 
-const char *getfield(char *line, int num) {
+char *getfield(char *line, int num) {
   const char *tok;
   for (tok = strtok(line, ";"); tok && *tok; tok = strtok(NULL, ";\n")) {
     if (--num == 0) {
@@ -37,7 +36,7 @@ const char *getfield(char *line, int num) {
   return NULL;
 }
 
-static const char *get_pomfile(void) {
+const char *get_pomfile(void) {
   const char *home = getenv("HOME");
   if (home == NULL)
     return NULL;
