@@ -20,8 +20,8 @@ void create_session_dir(void) {
     mkdir(safe_session_info_dir, 0777);
   }
 
-  safe_session_info_dir = NULL;
   free(safe_session_info_dir);
+  safe_session_info_dir = NULL;
 }
 
 void save_session_info(char *session_name, int session_number) {
@@ -67,12 +67,12 @@ void pomodoro_session(char *session_name) {
   int session_counter = 1;
   pomo_timer on_state, pause_state;
   on_state.session_name = session_name;
-  on_state.sec = 1501; // This is 25 minutes
+  on_state.sec = 11; // This is 25 minutes
   on_state.state = on;
   on_state.current_session_number = 1;
 
   pause_state.session_name = session_name;
-  pause_state.sec = 301; // this is 3 minutes
+  pause_state.sec = 6; // this is 3 minutes
   pause_state.state = p_break;
   pause_state.current_session_number = 1;
 

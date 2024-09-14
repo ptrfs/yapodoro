@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 int count_lines(FILE *file) {
   char ch;
   int number = 0;
@@ -30,7 +29,7 @@ char *getfield(char *line, int num) {
   const char *tok;
   for (tok = strtok(line, ";"); tok && *tok; tok = strtok(NULL, ";\n")) {
     if (--num == 0) {
-      return tok;
+      return (char *)tok;
     }
   }
   return NULL;
