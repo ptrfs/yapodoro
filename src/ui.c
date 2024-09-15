@@ -1,18 +1,40 @@
 #include "ui.h"
 #include "color.h"
+#include "pomfile.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-void show_pomfile_info(ptr_csv_info info) {
-  char *pomfile_rose = "💐";
+static int strtoi(const char *input) {
+  int res = 0;
+  scanf(input, "%d", &res);
+  return res;
+}
 
-  if (strtol(info.session_number, NULL, 10) < 2) {
-    pomfile_rose = "🥀";
-  } else if (strtol(info.session_number, NULL, 10) < 10) {
-    pomfile_rose = "🌹";
+void show_pomfile_info(ptr_csv_info info, enum pomfile_show_type type) {
+  char *pom_flower = "🥀";
+
+  if (strtoi(info.session_number) > 2 && strtoi(info.session_number) < 10) {
+    pom_flower = "🌹";
+  } else if (strtoi(info.session_number) < 10) {
+    pom_flower = "💐";
   }
 
-  printf(GRN " == %s pomodoro session == \n" reset, pomfile_rose);
-  printf(CYN "Session name: " reset "%s\n", info.session_name);
-  printf(CYN "Session number: " reset RED "%s\n" reset, info.session_number);
-  printf(MAG "Date: " reset "%s - %s \n", info.date, info.time);
+  if (type == verbose) {
+    printf(GRN "%s: %s \n Sessions: %s \n Date: %s-%s \n" reset, pom_flower,
+           info.session_name, info.session_number, info.date, info.time);
+  }
+
+  printf(GRN "%s - %s: %s Sessions on %s at %s" reset, pom_flower,
+         info.session_name, info.session_number, info.date, info.time);
+}
+
+void print_all_info(void) {
+  ptr_csv_info *info = m_get_csv_info();
+  int info_size = sizeof(*info);
+
+  for (int i = 0; i <= info_size; i++) {
+    show_pomfile_info(info[i], verbose);
+  }
+
+  free((void *)info);
 }

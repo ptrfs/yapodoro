@@ -12,6 +12,4 @@ typedef struct ptr_csv_info {
 int count_lines(FILE *file);
 char *getfield(char *line, int num);
 const char *get_pomfile(void);
-
-ptr_csv_info *get_csv_info(void);
-
+ptr_csv_info *m_get_csv_info(void);
